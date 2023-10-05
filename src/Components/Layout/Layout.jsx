@@ -9,7 +9,7 @@ export default function Layout() {
     <>
       <AuthContextProvider>
         <NavBar />
-        <div className="container ">
+        <div className="container">
           <Outlet />
         </div>
         <Footer />

@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import logo from "../../assets/freshcart-logo.svg";
-import { Link, NavLink } from "react-router-dom";
-import "@fortawesome/fontawesome-free";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthContext";
 
 export default function NavBar() {
   let { isUserLoggedIn, setIsUserLoggedIn } = useContext(AuthContext);
+  let navigate = useNavigate();
 
   function logout() {
     setIsUserLoggedIn(false);
     localStorage.removeItem("token");
+    navigate("/login");
   }
   return (
     <>
@@ -80,7 +81,6 @@ export default function NavBar() {
             <ul className="d-flex list-unstyled mt-3">
               {!isUserLoggedIn ? (
                 <>
-                  {" "}
                   <li className=" mx-2">
                     <Link className="nav-link" to="/register">
                       Register
@@ -92,14 +92,13 @@ export default function NavBar() {
                     </Link>
                   </li>
                 </>
-              ) : null}
-              {isUserLoggedIn ? (
-                <li className="mx-2nav-link">
-                  <a onClick={logout} href="/" className=" cursor-pointer  nav-link">
+              ) : (
+                <li className="mx-2 nav-link">
+                  <a onClick={logout} href="/" className=" cursor-pointer nav-link">
                     Logout
                   </a>
                 </li>
-              ) : null}
+              )}
             </ul>
           </div>
         </div>

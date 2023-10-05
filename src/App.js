@@ -10,6 +10,9 @@ import Orders from "./Components/Orders/Orders";
 import Products from "./Components/Products/Products";
 import Register from "./Components/Register/Register";
 import NotFound from "./Components/NotFound/NotFound";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import ProtectedAuth from "./Components/ProtectedAuth/ProtectedAuth";
+import ProductDetails from "./Components/ProductDetails/ProductDetails";
 
 export default function App() {
   let routers = createBrowserRouter([
@@ -17,18 +20,82 @@ export default function App() {
       path: "/",
       element: <Layout />,
       children: [
-        { path: "", element: <Navigate to={"home"} /> },
-        { path: "home", element: <Home /> },
-        { path: "login", element: <Login /> },
-        { path: "register", element: <Register /> },
+        { index: true, element: <Navigate to={"home"} /> },
 
-        { path: "products", element: <Products /> },
-        { path: "categories", element: <Categories /> },
-        { path: "brands", element: <Brands /> },
-        { path: "cart", element: <Cart /> },
-        { path: "orders", element: <Orders /> },
+        {
+          path: "products",
+          element: (
+            <ProtectedRoute>
+              <Products />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "home",
+          element: (
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "categories",
+          element: (
+            <ProtectedRoute>
+              <Categories />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "brands",
+          element: (
+            <ProtectedRoute>
+              <Brands />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "cart",
+          element: (
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "orders",
+          element: (
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "ProductDetails/:id",
+          element: <ProductDetails />,
+        },
 
-        { path: "*", element: <NotFound /> },
+        {
+          path: "login",
+          element: (
+            <ProtectedAuth>
+              <Login />
+            </ProtectedAuth>
+          ),
+        },
+        {
+          path: "register",
+          element: (
+            <ProtectedAuth>
+              <Register />
+            </ProtectedAuth>
+          ),
+        },
+
+        {
+          path: "*",
+          element: <NotFound />,
+        },
       ],
     },
   ]);

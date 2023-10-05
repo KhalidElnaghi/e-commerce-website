@@ -8,10 +8,9 @@ import { AuthContext } from "../../Contexts/AuthContext";
 export default function Login() {
   let [isLoading, setIsLoading] = useState(false);
   let [errorMessage, setErrorMessage] = useState("");
-
   let navigate = useNavigate();
 
-  let { isUserLoggedIn, setIsUserLoggedIn } = useContext(AuthContext);
+  let {  setIsUserLoggedIn } = useContext(AuthContext);
 
   async function login(values) {
     console.log(values);
